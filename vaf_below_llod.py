@@ -27,8 +27,11 @@ probability_below_llod = 0
 for y in range(args.y_min, args.y_max):
     for z in range(args.z_min, args.z_max):
         # count instances where VAF is below LLOD
-        if y+z==0 or float(y)/(y+z) >= llod:
-            # both zero, or above LLOD
+        if y+z==0:
+            # both coverages == 0 counts as below LLOD
+            pass
+        elif float(y)/(y+z) >= llod:
+            # coverage above LLOD
             continue
         p_y = poisson.pmf(y, y_cover)
         p_z = poisson.pmf(z, z_cover)
