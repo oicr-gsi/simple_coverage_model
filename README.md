@@ -1,10 +1,10 @@
-# Purpose
+# Introduction
 
-A simple coverage model used to determine likelihood of known variants falling below the detection threshold, for example in proficiency testing.
+This is a simple coverage model used to determine likelihood of known variants falling below the detection threshold, for example in proficiency testing. The model is implemented in a Python script: [vaf_below_llod.py](./vaf_below_llod.py)
 
 # Example 1: WGTS
 
-In the CAPNGSST proficiency test completed in January 2026, the Digital PCR VAF of the _MET_ variant was 11.7%. Sequencing at OICR detected a VAF of 5%, which fell below our LLOD of 10%. It is important to note that depth of coverage in sequencing is subject to random variation. To a first approximation it follows a Poisson distribution: https://www.illumina.com/documents/products/technotes/technote_coverage_calculation.pdf
+In the CAPNGSST proficiency test completed in January 2026, the Digital PCR VAF of the _MET_ variant was 11.7%. Sequencing at OICR detected a VAF of 5%, which fell below our LLOD of 10%. It is important to note that depth of coverage in sequencing is subject to random variation. To a first approximation it follows a Poisson distribution, as discussed in an [Illumina technical note](https://www.illumina.com/documents/products/technotes/technote_coverage_calculation.pdf).
 
 We can estimate the probability that VAF for a particular variant will fall below the LLOD. Suppose we have sequenced to our standard mean depth of 80X. Then if coverage depth were perfectly smooth, a VAF of 11.7% would translate to 9 variant reads and 71 non-variant reads at the locus of interest. But depth of coverage is not perfectly smooth; for example, if by chance we have 7 variant and 72 non-variant reads, then the variant is below LLOD.
 
@@ -20,15 +20,17 @@ We can quantify the variability as follows. Suppose the “true” frequency of 
 
 # Additional Remarks
 
-Release v0.0.2 has an updated version of the script which can process higher coverages, for example for TAR reporting where mean unique depth of coverage may exceed 5000X. This was used for the TAR APT test completed in July 2026.
+Release v0.0.2 has an updated version of the script which can process higher coverages, for example for TAR reporting where mean unique depth of coverage may exceed 5000X.
 
 The model relies on the fact that the mean of a sum of independent random variables is equal to the sum of the means. See for example Grimmet & Welsh (1986), p. 42.
 
-### Reference
+Further details are in a presentation given to GSI: [SimpleCoverageModel20260323.pdf](./SimpleCoverageModel20260323.pdf).
+
+# Reference
 
 Grimmet, G. & Welsh, D. (1986). Probability: An Introduction. Oxford University Press.
 
-Further details are in a presentation given to GSI: [SimpleCoverageModel20260323.pdf](./SimpleCoverageModel20260323.pdf).
+# Copyright and License
 
 Copyright &copy; 2026 by Genome Sequence Informatics, Ontario Institute for Cancer Research.
 
